@@ -145,8 +145,9 @@ export class ServiceHistoryService {
     const washRecords = await this.getAllWashHistory(carId)
     const maintenanceRecords = await this.getAllMaintenanceHistory(carId)
     const filteredRefueling = refuelingRecords.map(
-      ({ id, gasStation, price, date, mileage, type }) => ({
+      ({ id, car, gasStation, price, date, mileage, type }) => ({
         id,
+        car,
         title: gasStation,
         price,
         date,
@@ -155,8 +156,9 @@ export class ServiceHistoryService {
       }),
     )
     const filteredWash = washRecords.map(
-      ({ id, name, price, date, mileage, type }) => ({
+      ({ id, car, name, price, date, mileage, type }) => ({
         id,
+        car,
         title: name,
         price,
         date,
@@ -165,8 +167,9 @@ export class ServiceHistoryService {
       }),
     )
     const filteredMaintenance = maintenanceRecords.map(
-      ({ id, title, price, date, mileage, type }) => ({
+      ({ id, car, title, price, date, mileage, type }) => ({
         id,
+        car,
         title,
         price,
         date,
