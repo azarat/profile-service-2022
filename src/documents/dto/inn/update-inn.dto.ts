@@ -12,7 +12,7 @@ export class UpdateINNDTO {
 
   @ApiProperty({ required: false, example: 'КА5810ВО' })
   @IsString()
-  @Length(8, 8)
+  @Length(3, 8)
   @IsCarNumber()
   @IsOptional()
   carNumber?: string

@@ -16,7 +16,7 @@ export class CreateTechnicalPassportDTO {
 
   @ApiProperty({ example: 'КА5810ВО', required: true })
   @IsString()
-  @Length(8, 8)
+  @Length(3, 8)
   @IsCarNumber()
   carNumber: string
 }

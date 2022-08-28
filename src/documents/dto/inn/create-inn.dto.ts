@@ -11,7 +11,7 @@ export class CreateINNDTO {
 
   @ApiProperty({ example: 'КА5810ВО' })
   @IsString()
-  @Length(8, 8)
+  @Length(3, 8)
   @IsCarNumber()
   carNumber: string
 }
