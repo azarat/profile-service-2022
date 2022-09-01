@@ -17,7 +17,7 @@ export class CreateWashHistoryDTO {
   @IsNotEmpty()
   price: number
 
-  @ApiProperty({ required: true, example: '10.12.2021' })
+  @ApiProperty({ required: true, example: '2021-12-10 12:24:36' })
   @Transform(({ value }) => Utils.transformStringToDate(value))
   date: Date
 
