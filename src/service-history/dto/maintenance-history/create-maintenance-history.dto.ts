@@ -53,6 +53,11 @@ export class CreateMaintenanceHistoryDTO {
   @IsOptional()
   isSaved?: boolean
 
+  @ApiProperty({ required: false, default: false, example: true })
+  @IsOptional()
+  @Transform(({ value }) => value == "true" ? true : false)
+  updCarMileage?: boolean
+
   @ApiProperty({
     required: false,
     example: ['image1.png', 'image2.png'],

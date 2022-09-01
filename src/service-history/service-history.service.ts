@@ -231,7 +231,10 @@ export class ServiceHistoryService {
         photos,
       )
     const { car, mileage } = newRecord
-    await this.databaseCarRepository.setMileage(car, mileage)
+    const { updCarMileage } = body
+    
+    if (updCarMileage == true)
+      await this.databaseCarRepository.setMileage(car, mileage)
     return this.transformRefuelingHistoryDocumentToDto(newRecord)
   }
 
@@ -247,7 +250,10 @@ export class ServiceHistoryService {
         photos,
       )
     const { car, mileage } = newRecord
-    await this.databaseCarRepository.setMileage(car, mileage)
+    const { updCarMileage } = body
+    
+    if (updCarMileage == true)
+      await this.databaseCarRepository.setMileage(car, mileage)
     return this.transformWashHistoryDocumentToDto(newRecord)
   }
 
@@ -265,7 +271,10 @@ export class ServiceHistoryService {
         type,
       )
     const { car, mileage } = newRecord
-    await this.databaseCarRepository.setMileage(car, mileage)
+    const { updCarMileage } = body
+    
+    if (updCarMileage == true)
+      await this.databaseCarRepository.setMileage(car, mileage)
     return this.transformMaintenanceHistoryDocumentToDto(newRecord)
   }
 
@@ -281,7 +290,10 @@ export class ServiceHistoryService {
         updatedPhotos,
       )
     const { car, mileage } = updatedRecord
-    await this.databaseCarRepository.setMileage(car, mileage)
+    const { updCarMileage } = body
+    
+    if (updCarMileage == true)
+      await this.databaseCarRepository.setMileage(car, mileage)
     return this.transformRefuelingHistoryDocumentToDto(updatedRecord)
   }
 
@@ -297,7 +309,10 @@ export class ServiceHistoryService {
         updatedPhotos,
       )
     const { car, mileage } = updatedRecord
-    await this.databaseCarRepository.setMileage(car, mileage)
+    const { updCarMileage } = body
+   
+    if (updCarMileage == true)
+      await this.databaseCarRepository.setMileage(car, mileage)
     return this.transformWashHistoryDocumentToDto(updatedRecord)
   }
 
@@ -313,7 +328,10 @@ export class ServiceHistoryService {
         updatedPhotos,
       )
     const { car, mileage } = updatedRecord
-    await this.databaseCarRepository.setMileage(car, mileage)
+    const { updCarMileage } = body
+    
+    if (updCarMileage == true)
+      await this.databaseCarRepository.setMileage(car, mileage)
     return this.transformMaintenanceHistoryDocumentToDto(updatedRecord)
   }
 

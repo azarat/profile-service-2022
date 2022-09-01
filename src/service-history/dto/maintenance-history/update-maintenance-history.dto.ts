@@ -49,6 +49,11 @@ export class UpdateMaintenanceHistoryDTO {
   @IsOptional()
   isSaved?: boolean
 
+  @ApiProperty({ required: false, default: false, example: true })
+  @IsOptional()
+  @Transform(({ value }) => value == "true" ? true : false)
+  updCarMileage?: boolean
+
   @ApiProperty({ required: false, example: '10.12.2021' })
   @Transform(({ value }) => Utils.transformStringToDate(value))
   @IsOptional()

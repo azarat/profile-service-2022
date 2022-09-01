@@ -18,6 +18,11 @@ export class UpdateRefuelingHistoryDTO {
   @IsOptional()
   isFullTank?: boolean
 
+  @ApiProperty({ required: false, example: true })
+  @IsOptional()
+  @Transform(({ value }) => value == "true" ? true : false)
+  updCarMileage?: boolean
+
   @ApiProperty({ required: false, example: 23.5 })
   @IsOptional()
   pricePerLiter?: number
