@@ -30,7 +30,9 @@ export class DatabaseDocumentsRepository {
     private readonly technicalPassportModel: Model<TechnicalPassportDocument>,
   ) {}
 
-  public async deleteDriverLicenseByUser(userId: Types.ObjectId): Promise<void> {
+  public async deleteDriverLicenseByUser(
+    userId: Types.ObjectId,
+  ): Promise<void> {
     await this.driverLicenseModel.deleteMany({
       user: userId,
     })
@@ -42,7 +44,9 @@ export class DatabaseDocumentsRepository {
     })
   }
 
-  public async deleteTechnicalPassportByUser(userId: Types.ObjectId): Promise<void> {
+  public async deleteTechnicalPassportByUser(
+    userId: Types.ObjectId,
+  ): Promise<void> {
     await this.technicalPassportModel.deleteMany({
       user: userId,
     })
@@ -68,6 +72,18 @@ export class DatabaseDocumentsRepository {
     const res = await this.driverLicenseModel.findById(id)
     this.validAction(res)
     return res
+  }
+
+  public async findDriverLicense(
+    driverLicense: string,
+  ): Promise<DriverLicenseDocument> {
+    const series = driverLicense.substring(0, 3)
+    const number = driverLicense.substring(3, driverLicense.length)
+    const driverLicenseDocument = await this.driverLicenseModel.findOne({
+      number,
+      series,
+    })
+    return driverLicenseDocument
   }
 
   public async getInn(id: string): Promise<INNDocument> {

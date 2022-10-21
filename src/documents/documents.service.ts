@@ -24,7 +24,9 @@ export class DocumentsService {
     private readonly tokenService: TokenService,
   ) {}
 
-  public async deleteDocumentsByUserByUser(userId: Types.ObjectId): Promise<void> {
+  public async deleteDocumentsByUserByUser(
+    userId: Types.ObjectId,
+  ): Promise<void> {
     await this.databaseDocumentsRepository.deleteDriverLicenseByUser(userId)
     await this.databaseDocumentsRepository.deleteINNByUser(userId)
     await this.databaseDocumentsRepository.deleteTechnicalPassportByUser(userId)
@@ -59,6 +61,15 @@ export class DocumentsService {
   public async getDriverLicense(id: string): Promise<ResponseDriverLicenseDTO> {
     const license = await this.databaseDocumentsRepository.getDriverLicene(id)
     return this.transformDriverLicenseDocumentToDto(license)
+  }
+
+  public async getByDriverLicense(
+    driverLicense: string,
+  ): Promise<ResponseDriverLicenseDTO> {
+    const driverLicenseDocument =
+      await this.databaseDocumentsRepository.findDriverLicense(driverLicense)
+
+    return this.transformDriverLicenseDocumentToDto(driverLicenseDocument)
   }
 
   public async getInn(id: string): Promise<ResponseINNDTO> {
@@ -141,8 +152,15 @@ export class DocumentsService {
   private transformDriverLicenseDocumentToDto(
     license: DriverLicenseDocument,
   ): ResponseDriverLicenseDTO {
-    const { id, series, number, date } = license
-    return { id, series, number, date, type: DocumentTypesEnum.DRIVER_LICENSE }
+    const { id, series, number, date, user } = license
+    return {
+      id,
+      series,
+      number,
+      date,
+      user: user.toString(),
+      type: DocumentTypesEnum.DRIVER_LICENSE,
+    }
   }
 
   private transformINNDocumentToDto(inn: INNDocument): ResponseINNDTO {
