@@ -77,8 +77,9 @@ export class DatabaseDocumentsRepository {
   public async findDriverLicense(
     driverLicense: string,
   ): Promise<DriverLicenseDocument> {
-    const series = driverLicense.substring(0, 3)
-    const number = driverLicense.substring(3, driverLicense.length)
+    const decodeDriverLicense = decodeURI(driverLicense)
+    const series = decodeDriverLicense.substring(0, 3)
+    const number = decodeDriverLicense.substring(3, decodeDriverLicense.length)
     const driverLicenseDocument = await this.driverLicenseModel.findOne({
       number,
       series,
