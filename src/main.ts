@@ -24,6 +24,6 @@ async function bootstrap(): Promise<void> {
     SwaggerModule.createDocument(app, swaggerConfig),
     { swaggerOptions: { operationsSorter: 'method' } },
   )
-  await app.listen(process.env.PORT)
+  await app.listen(9003)
 }
 bootstrap()
