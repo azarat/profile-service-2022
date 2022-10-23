@@ -8,7 +8,19 @@ phases:
        - IMAGE_TAG=$(echo $(echo $VERSION)'.'$CODEBUILD_BUILD_NUMBER)
   build:
     commands:
-      - docker build -t $REPOSITORY_URI:$IMAGE_TAG . --build-arg GITHUB_TOKEN=$(echo $GITHUB_TOKEN) --build-arg SECRET_ID=$(echo $SECRET_ID) --build-arg AWS_REGION=$(echo $AWS_REGION) --build-arg BUCKET_NAME=$(echo $BUCKET_NAME) --build-arg API_HOST=$(echo $API_HOST) --build-arg RECORDS_FOLDER=$(echo $RECORDS_FOLDER) --build-arg AVATARS_FOLDER=$(echo $AVATARS_FOLDER) --build-arg MONGO_URI=$(echo $MONGO_URI) --build-arg INSURANCE_FOLDER=$(echo $INSURANCE_FOLDER)
+      - |
+        docker build -t $REPOSITORY_URI:$IMAGE_TAG . \
+          --build-arg GITHUB_TOKEN=$(echo $GITHUB_TOKEN) \
+          --build-arg SECRET_ID=$(echo $SECRET_ID) \
+          --build-arg AWS_REGION=$(echo $AWS_REGION) \
+          --build-arg BUCKET_NAME=$(echo $BUCKET_NAME) \
+          --build-arg API_HOST=$(echo $API_HOST) \
+          --build-arg RECORDS_FOLDER=$(echo $RECORDS_FOLDER) \
+          --build-arg AVATARS_FOLDER=$(echo $AVATARS_FOLDER) \
+          --build-arg MONGO_URI=$(echo $MONGO_URI) \
+          --build-arg PORT=$(echo $PORT) \
+          --build-arg API_ENV=$(echo $API_ENV) \
+          --build-arg INSURANCE_FOLDER=$(echo $INSURANCE_FOLDER)
   post_build:
     commands:
        - docker push $REPOSITORY_URI:$IMAGE_TAG
