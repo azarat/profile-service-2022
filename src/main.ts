@@ -24,7 +24,7 @@ async function bootstrap(): Promise<void> {
     SwaggerModule.createDocument(app, swaggerConfig),
     { swaggerOptions: { operationsSorter: 'method' } },
   )
-  app.setGlobalPrefix(`/${process.env.API_ENV}`);
+  app.setGlobalPrefix(`/${process.env.API_ENV}/ProfileService`);
   await app.listen(process.env.PORT)
 }
 bootstrap()
