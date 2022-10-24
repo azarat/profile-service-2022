@@ -33,6 +33,8 @@ import { CreateTechnicalPassportDTO } from './dto/technical-passport/create-tech
 import { ResponseTechnicalPassportDTO } from './dto/technical-passport/response-technical-passport.dto'
 import { UpdateTechnicalPassportDTO } from './dto/technical-passport/update-technical-passport.dto'
 import { RequestParam } from 'src/decorators/request-params.decorator'
+import { RequestQuery } from 'src/decorators/request-query.decorator'
+
 import { IdParamDTO } from '../common-dto/id-param.dto'
 import { DocumentUserGuard } from 'src/auth/guards/document-user.guard'
 import { UserSdkGuard } from 'src/auth/guards/user-sdk.guard'
@@ -438,10 +440,10 @@ export class DocumentsController {
   }
 
   // @UseGuards(UserSdkGuard)
-  @Get('getUserByDriverLicense/:driverLicense')
+  @Get('getUserByDriverLicense')
   // @ApiExcludeEndpoint()
   public getByDriverLicense(
-    @RequestParam(DriverLicenseParamDTO)
+    @RequestQuery(DriverLicenseParamDTO)
     { driverLicense }: DriverLicenseParamDTO,
   ): Promise<ResponseDriverLicenseDTO> {
     return this.documentsService.getByDriverLicense(driverLicense)
