@@ -68,8 +68,10 @@ export class DocumentsService {
   ): Promise<ResponseDriverLicenseDTO> {
     const driverLicenseDocument =
       await this.databaseDocumentsRepository.findDriverLicense(driverLicense)
-
-    return this.transformDriverLicenseDocumentToDto(driverLicenseDocument)
+    if (driverLicenseDocument !== null) {
+      return this.transformDriverLicenseDocumentToDto(driverLicenseDocument)
+    }
+    return
   }
 
   public async getInn(id: string): Promise<ResponseINNDTO> {
