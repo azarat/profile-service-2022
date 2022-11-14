@@ -30,7 +30,10 @@ import { CreateINNDTO } from './dto/inn/create-inn.dto'
 import { ResponseINNDTO } from './dto/inn/response-inn.dto'
 import { UpdateINNDTO } from './dto/inn/update-inn.dto'
 import { CreateTechnicalPassportDTO } from './dto/technical-passport/create-technical-passport.dto'
-import { ResponseTechnicalPassportDTO } from './dto/technical-passport/response-technical-passport.dto'
+import {
+  ResponseTechnicalPassportDTO,
+  TechnicalPassportParamDTO,
+} from './dto/technical-passport/response-technical-passport.dto'
 import { UpdateTechnicalPassportDTO } from './dto/technical-passport/update-technical-passport.dto'
 import { RequestParam } from 'src/decorators/request-params.decorator'
 import { RequestQuery } from 'src/decorators/request-query.decorator'
@@ -447,5 +450,15 @@ export class DocumentsController {
     { driverLicense }: DriverLicenseParamDTO,
   ): Promise<ResponseDriverLicenseDTO> {
     return this.documentsService.getByDriverLicense(driverLicense)
+  }
+
+  // @UseGuards(UserSdkGuard)
+  @Get('getUserByTechnicalPassport')
+  // @ApiExcludeEndpoint()
+  public getByTechnicalPassport(
+    @RequestQuery(TechnicalPassportParamDTO)
+    { technicalPassport }: TechnicalPassportParamDTO,
+  ): Promise<ResponseTechnicalPassportDTO> {
+    return this.documentsService.getByTechnicalPassport(technicalPassport)
   }
 }

@@ -74,6 +74,21 @@ export class DocumentsService {
     return
   }
 
+  public async getByTechnicalPassport(
+    technicalPassport: string,
+  ): Promise<ResponseTechnicalPassportDTO> {
+    const technicalPassportDocument =
+      await this.databaseDocumentsRepository.findTechnicalPassport(
+        technicalPassport,
+      )
+    if (technicalPassportDocument !== null) {
+      return this.transformTechnicalPassportDocumentToDto(
+        technicalPassportDocument,
+      )
+    }
+    return
+  }
+
   public async getInn(id: string): Promise<ResponseINNDTO> {
     const inn = await this.databaseDocumentsRepository.getInn(id)
     return this.transformINNDocumentToDto(inn)
@@ -173,12 +188,13 @@ export class DocumentsService {
   private transformTechnicalPassportDocumentToDto(
     technicalPassport: TechnicalPassportDocument,
   ): ResponseTechnicalPassportDTO {
-    const { id, series, number, carNumber } = technicalPassport
+    const { id, series, number, carNumber, user } = technicalPassport
     return {
       id,
       series,
       number,
       carNumber,
+      user: user.toString(),
       type: DocumentTypesEnum.TECHNICAL_PASSPORT,
     }
   }
