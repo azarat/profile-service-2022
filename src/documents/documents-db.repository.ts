@@ -109,6 +109,30 @@ export class DatabaseDocumentsRepository {
     })
     return driverLicenseDocument
   }
+
+  public async findTechnicalPassport(
+    technicalPassport: string,
+  ): Promise<TechnicalPassportDocument> {
+    const decodeTechnicalPassport = decodeURI(technicalPassport)
+    const series = decodeTechnicalPassport.substring(0, 3)
+    const number = decodeTechnicalPassport.substring(
+      3,
+      decodeTechnicalPassport.length,
+    )
+
+    const transformSeries = this.transformSeries(series)
+    const technicalPassportDocument = await this.technicalPassportModel.findOne(
+      {
+        $or: [
+          { number, series },
+          { number, transformSeries },
+        ],
+      },
+    )
+
+    return technicalPassportDocument
+  }
+
   public async getInn(id: string): Promise<INNDocument> {
     const res = await this.INNModel.findById(id)
     this.validAction(res)
