@@ -25,6 +25,10 @@ async function bootstrap(): Promise<void> {
     { swaggerOptions: { operationsSorter: 'method' } },
   )
   app.setGlobalPrefix(`/${process.env.API_ENV}/ProfileService`);
-  await app.listen(process.env.PORT)
+  if (process.env.API_HOST == 'http://172.20.10.2') {
+    await app.listen(process.env.PORT, '172.20.10.2')
+  } else {
+    await app.listen(process.env.PORT)
+  }
 }
 bootstrap()
