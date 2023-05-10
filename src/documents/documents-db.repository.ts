@@ -30,7 +30,9 @@ export class DatabaseDocumentsRepository {
     private readonly technicalPassportModel: Model<TechnicalPassportDocument>,
   ) {}
 
-  public async deleteDriverLicenseByUser(userId: Types.ObjectId): Promise<void> {
+  public async deleteDriverLicenseByUser(
+    userId: Types.ObjectId,
+  ): Promise<void> {
     await this.driverLicenseModel.deleteMany({
       user: userId,
     })
@@ -42,7 +44,9 @@ export class DatabaseDocumentsRepository {
     })
   }
 
-  public async deleteTechnicalPassportByUser(userId: Types.ObjectId): Promise<void> {
+  public async deleteTechnicalPassportByUser(
+    userId: Types.ObjectId,
+  ): Promise<void> {
     await this.technicalPassportModel.deleteMany({
       user: userId,
     })
@@ -70,12 +74,70 @@ export class DatabaseDocumentsRepository {
     return res
   }
 
+  public transformSeries(series: string) {
+    const mapObj = {
+      К: 'K',
+      Е: 'E',
+      Н: 'H',
+      І: 'I',
+      В: 'B',
+      А: 'A',
+      Р: 'P',
+      О: 'O',
+      С: 'C',
+      М: 'M',
+      Т: 'T',
+      Х: 'X',
+    }
+    series = series.replace(/К|Е|Н|І|В|А|Р|О|С|М|Т|Х/gi, function (matched) {
+      return mapObj[matched]
+    })
+    return series
+  }
+  public async findDriverLicense(
+    driverLicense: string,
+  ): Promise<DriverLicenseDocument> {
+    const decodeDriverLicense = decodeURI(driverLicense)
+    const series = decodeDriverLicense.substring(0, 3)
+    const number = decodeDriverLicense.substring(3, decodeDriverLicense.length)
+    const transformSeries = this.transformSeries(series)
+    const driverLicenseDocument = await this.driverLicenseModel.findOne({
+      $or: [
+        { number, series },
+        { number, transformSeries },
+      ],
+    })
+    return driverLicenseDocument
+  }
+
+  public async findTechnicalPassport(
+    technicalPassport: string,
+  ): Promise<TechnicalPassportDocument> {
+    const decodeTechnicalPassport = decodeURI(technicalPassport)
+    const series = decodeTechnicalPassport.substring(0, 3)
+    const number = decodeTechnicalPassport.substring(
+      3,
+      decodeTechnicalPassport.length,
+    )
+
+    const transformSeries = this.transformSeries(series)
+    const technicalPassportDocument = await this.technicalPassportModel.findOne(
+      {
+        $or: [
+          { number, series },
+          { number, transformSeries },
+        ],
+      },
+    )
+
+    return technicalPassportDocument
+  }
+
   public async getInn(id: string): Promise<INNDocument> {
     const res = await this.INNModel.findById(id)
     this.validAction(res)
     return res
   }
-
   public async getTechnicalPassport(
     id: string,
   ): Promise<TechnicalPassportDocument> {

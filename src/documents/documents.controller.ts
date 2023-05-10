@@ -21,15 +21,23 @@ import TokenHeaderDTO from 'src/common-dto/token-header.dto'
 import { DatabaseDocumentsRepository } from './documents-db.repository'
 import { DocumentsService } from './documents.service'
 import { CreateDriverLicenseDTO } from './dto/driver-license/create-driver-license.dto'
-import { ResponseDriverLicenseDTO } from './dto/driver-license/response-driver-license.dto'
+import {
+  DriverLicenseParamDTO,
+  ResponseDriverLicenseDTO,
+} from './dto/driver-license/response-driver-license.dto'
 import { UpdateDriverLicenseDTO } from './dto/driver-license/update-driver-license.dto'
 import { CreateINNDTO } from './dto/inn/create-inn.dto'
 import { ResponseINNDTO } from './dto/inn/response-inn.dto'
 import { UpdateINNDTO } from './dto/inn/update-inn.dto'
 import { CreateTechnicalPassportDTO } from './dto/technical-passport/create-technical-passport.dto'
-import { ResponseTechnicalPassportDTO } from './dto/technical-passport/response-technical-passport.dto'
+import {
+  ResponseTechnicalPassportDTO,
+  TechnicalPassportParamDTO,
+} from './dto/technical-passport/response-technical-passport.dto'
 import { UpdateTechnicalPassportDTO } from './dto/technical-passport/update-technical-passport.dto'
 import { RequestParam } from 'src/decorators/request-params.decorator'
+import { RequestQuery } from 'src/decorators/request-query.decorator'
+
 import { IdParamDTO } from '../common-dto/id-param.dto'
 import { DocumentUserGuard } from 'src/auth/guards/document-user.guard'
 import { UserSdkGuard } from 'src/auth/guards/user-sdk.guard'
@@ -432,5 +440,25 @@ export class DocumentsController {
     (ResponseDriverLicenseDTO | ResponseINNDTO | ResponseTechnicalPassportDTO)[]
   > {
     return this.documentsService.getDocuments(token)
+  }
+
+  // @UseGuards(UserSdkGuard)
+  @Get('getUserByDriverLicense')
+  // @ApiExcludeEndpoint()
+  public getByDriverLicense(
+    @RequestQuery(DriverLicenseParamDTO)
+    { driverLicense }: DriverLicenseParamDTO,
+  ): Promise<ResponseDriverLicenseDTO> {
+    return this.documentsService.getByDriverLicense(driverLicense)
+  }
+
+  // @UseGuards(UserSdkGuard)
+  @Get('getUserByTechnicalPassport')
+  // @ApiExcludeEndpoint()
+  public getByTechnicalPassport(
+    @RequestQuery(TechnicalPassportParamDTO)
+    { technicalPassport }: TechnicalPassportParamDTO,
+  ): Promise<ResponseTechnicalPassportDTO> {
+    return this.documentsService.getByTechnicalPassport(technicalPassport)
   }
 }
