@@ -16,8 +16,11 @@ export class Car {
   @Prop({ type: String, required: true })
   model: string
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String })
   modelType: string
+
+  @Prop({ type: String })
+  generation: string
 
   @Prop({ type: String })
   modification: string

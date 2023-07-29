@@ -24,6 +24,7 @@ export class CreateCarDTO {
   model: string
 
   @ApiProperty({ example: 'Supra (A7)' })
+  @IsOptional()
   @IsString()
   modelType: string
 
@@ -31,6 +32,11 @@ export class CreateCarDTO {
   @IsOptional()
   @IsString()
   modification: string
+
+  @ApiProperty({ example: 'Toyota Supra (A7) 3.0 Turbo (MA70)' })
+  @IsOptional()
+  @IsString()
+  generation: string
 
   @ApiProperty({ example: 'Седан' })
   @IsOptional()
