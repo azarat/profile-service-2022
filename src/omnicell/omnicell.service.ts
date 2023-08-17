@@ -46,15 +46,25 @@ export class OmnicellService {
         LocalizeError.INVALID_PHONE,
         HttpStatus.BAD_REQUEST,
       )
+
+    console.log("set cache", phone, code);
+    
     await this.cacheManager.set(phone, code, { ttl: 1800 })
   }
 
   public async omnicellVerify(code: string, phone: string): Promise<void> {
+    console.log("phone", phone);
+    console.log("code", code);
+    console.log("cache code", (await this.cacheManager.get(phone)));
+    
     if ((await this.cacheManager.get(phone)) !== code || !code)
       throw new LocalizeError(
         LocalizeError.INVALID_CODE,
         HttpStatus.UNAUTHORIZED,
       )
+    
+    console.log("Verify OK");
+    
     await this.cacheManager.del(phone)
   }
 
