@@ -10,9 +10,9 @@ export class Utils {
 
     return new Date(
       Date.UTC(
-        splitedDate[0],
-        splitedDate[1] - 1,
         splitedDate[2],
+        splitedDate[1] - 1,
+        splitedDate[0],
         splitedtime[0],
         splitedtime[1],
         splitedtime[2],

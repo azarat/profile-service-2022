@@ -38,6 +38,25 @@ export class DatabaseInsuranceRepository {
     return this.insuranceModel.find({ user })
   }
 
+  public async getExpireInsurances(daysToExpire: number): Promise<InsuranceDocument[]> {
+    return this.insuranceModel.aggregate([
+      {
+        $addFields: {
+          dayssince: {
+            $ceil: {
+              $divide: [{ $subtract: ['$date', new Date()] }, 1000 * 60 * 60 * 24]
+            }
+          }
+        }
+      },
+      {
+        $match: {
+          dayssince: daysToExpire
+        }
+      }
+    ])
+  }
+
   public async findById(
     id: string | Types.ObjectId,
   ): Promise<InsuranceDocument> {
