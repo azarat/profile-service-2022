@@ -37,4 +37,4 @@ RUN npm run migrate
 
 EXPOSE $PORT
 
-CMD [ "npm", "start:prod" ]
+CMD [ "npm", "run", "start:prod" ]
