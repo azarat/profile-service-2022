@@ -11,6 +11,7 @@ import { DocumentsModule } from './documents/documents.module'
 import { ServiceHistoryModule } from './service-history/service-history.module'
 import { StatisticsModule } from './statistics/statistics.module'
 import { InsuranceModule } from './insurance/insurance.module';
+import { PushModule } from './push/push.module'
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { InsuranceModule } from './insurance/insurance.module';
     ServiceHistoryModule,
     StatisticsModule,
     InsuranceModule,
+    PushModule,
   ],
   controllers: [AppController],
 })
