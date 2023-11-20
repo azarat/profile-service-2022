@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsString } from 'class-validator'
+import { IsOptional, IsString } from 'class-validator'
 import { IsPhoneDecorator } from 'src/decorators/is-phone.decorator'
 
 class PushByUserPhoneDTO {
@@ -12,6 +12,10 @@ class PushByUserPhoneDTO {
   
   @IsString()
   title: string
+
+  @IsString()
+  @IsOptional()
+  type: string
 }
 
 export default PushByUserPhoneDTO

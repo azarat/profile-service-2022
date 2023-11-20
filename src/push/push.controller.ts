@@ -37,9 +37,9 @@ export class PushController {
   public async pushUserByPhone(
     @Body() reqBody: PushByUserPhoneDTO,
   ): Promise<boolean> {
-    const { phone, title, body } = reqBody
+    const { phone, title, body, type } = reqBody
 
-    await this.pushService.pushUserByPhone(phone, title, body)
+    await this.pushService.pushUserByPhone(phone, title, body, type)
 
     return true
   }

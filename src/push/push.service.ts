@@ -10,7 +10,7 @@ export class PushService {
     private configService: ConfigService,
   ) {}
 
-  public async pushUserByPhone(phone: string, title: string, body: string): Promise<void> {
+  public async pushUserByPhone(phone: string, title: string, body: string, type: string): Promise<void> {
     const user = await this.databaseUserRepository.findByPhone(phone)
 
     if (user == null) {
@@ -22,6 +22,8 @@ export class PushService {
     if (deviceToken == null || !deviceToken.length) {
         throw new HttpException('User has no device', HttpStatus.NOT_FOUND);
     }
+
+    let pushType = type ?? "VINTRACKER_STATUS_CHANGED"
     
     await axios.post(
         this.configService.get('pushNotificationsUri'),
@@ -32,7 +34,7 @@ export class PushService {
             body,
           },
           data: {
-            type: "VINTRACKER_STATUS_CHANGED"
+            type: pushType
           },
         },
         {
