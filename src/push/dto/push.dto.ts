@@ -1,16 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsOptional } from 'class-validator'
-
+import { IsOptional, IsString } from 'class-validator'
 import { IsPhoneDecorator } from 'src/decorators/is-phone.decorator'
 
-class SendSMSBodyDTO {
+class PushByUserPhoneDTO {
   @ApiProperty({ example: '+380674613280' })
   @IsPhoneDecorator()
   phone: string
 
-  @ApiProperty({ example: 'LOGIN' })
+  @IsString()
+  body: string
+  
+  @IsString()
+  title: string
+
+  @IsString()
   @IsOptional()
-  type?: string
+  type: string
 }
 
-export default SendSMSBodyDTO
+export default PushByUserPhoneDTO

@@ -16,6 +16,9 @@ export class CarResponseDTO {
   @ApiProperty({ example: 'Supra (A7)' })
   modelType: string
 
+  @ApiProperty({ example: 'Supra (A7)' })
+  generation: string
+
   @ApiProperty({ example: 'Toyota Supra (A7) 3.0 Turbo (MA70)' })
   modification: string
 

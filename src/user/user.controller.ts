@@ -28,7 +28,7 @@ import UserDTO from './dto/user.dto'
 import { UserService } from './user.service'
 import { PhotoValidationPipe } from '../validation/photoValidation'
 import { RequestHeader } from 'src/decorators/request-header.decorator'
-import { UserSdkRepsonseDTO } from './dto/user-sdk-response.dto'
+import { UserBaseSdkRepsonseDTO, UserSdkRepsonseDTO } from './dto/user-sdk-response.dto'
 import { UserSdkGuard } from 'src/auth/guards/user-sdk.guard'
 import TokenHeaderDTO from 'src/common-dto/token-header.dto'
 import { UserGuard } from 'src/auth/guards/user.guard'
@@ -177,5 +177,14 @@ export class UserController {
     @RequestParam(IdParamDTO) { id }: IdParamDTO,
   ): Promise<UserSdkRepsonseDTO> {
     return this.userService.getById(id)
+  }
+
+  @UseGuards(UserSdkGuard)
+  @Get('base/:id')
+  @ApiExcludeEndpoint()
+  public getBaseById(
+    @RequestParam(IdParamDTO) { id }: IdParamDTO,
+  ): Promise<UserBaseSdkRepsonseDTO> {
+    return this.userService.getBaseById(id)
   }
 }

@@ -8,11 +8,19 @@ export class Utils {
     const splitedDate = date.split('-').map((item) => +item)
     const splitedtime = time.split(':').map((item) => +item)
 
+    let year = splitedDate[0]
+    let dayOfMonth = splitedDate[2]
+  
+    if (splitedDate[2].toString().length == 4) {
+      year = splitedDate[2]
+      dayOfMonth = splitedDate[0]
+    }
+    
     return new Date(
       Date.UTC(
-        splitedDate[0],
+        year,
         splitedDate[1] - 1,
-        splitedDate[2],
+        dayOfMonth,
         splitedtime[0],
         splitedtime[1],
         splitedtime[2],

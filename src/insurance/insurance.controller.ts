@@ -78,6 +78,24 @@ export class InsuranceController {
     return this.insuranceService.getInsurances(token)
   }
 
+  @Get('cron')
+  @ApiHeader({
+    name: 'accept-language',
+    description: 'en | ru | uk | nothing',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Sending push 10 days prior policy ends up',
+    type: Boolean,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid token',
+  })
+  public sendWarnPush(): Promise<boolean> {
+    return this.insuranceService.sendWarnPush()
+  }
+
   @Get(':id')
   @ApiParam({ name: 'id' })
   @ApiHeader({ name: 'token' })

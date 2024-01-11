@@ -19,6 +19,8 @@ const getSecret = async (secretName: string): Promise<string> => {
 
 export const configuration = async (): Promise<{ [key: string]: string }> => ({
   mongoUri: await getSecret('MONGO_URI'),
+  pushNotificationsUri: await getSecret('PUSH_NOTIFICATIONS_URI'),
+  pushLambdaSecret: await getSecret('PUSH_LAMBDA_SECRET'),
   omnicellUrl: await getSecret('OMNICELL_URL'),
   omnicellAuthToken: await getSecret('OMNICELL_AUTH_TOKEN'),
   jwtSecret: await getSecret('JWT_SECRET'),

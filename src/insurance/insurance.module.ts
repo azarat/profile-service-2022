@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Module, forwardRef } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
 
 import TokenModule from 'src/token/token.module'
@@ -8,6 +8,7 @@ import { InsuranceService } from './insurance.service'
 import { Insurance, InsuranceSchema } from './schemas/insurance.schema'
 import { AwsModule } from 'src/aws/aws.module'
 import { ServiceHistoryModule } from 'src/service-history/service-history.module'
+import { UserModule } from 'src/user/user.module'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ServiceHistoryModule } from 'src/service-history/service-history.module
     TokenModule,
     ServiceHistoryModule,
     AwsModule,
+    forwardRef(() => UserModule),
   ],
   controllers: [InsuranceController],
   providers: [InsuranceService, DatabaseInsuranceRepository],

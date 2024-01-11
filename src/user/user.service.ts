@@ -12,7 +12,7 @@ import { SendStatusEnum } from 'src/omnicell/enums/send-sms.enum'
 import UpdatePhoneDTO from './dto/update-phone.dto'
 import UserUpdateDTO from './dto/update-user.dto'
 import TokenService from 'src/token/token.service'
-import { UserSdkRepsonseDTO } from './dto/user-sdk-response.dto'
+import { UserBaseSdkRepsonseDTO, UserSdkRepsonseDTO } from './dto/user-sdk-response.dto'
 import { DatabaseCarRepository } from '../car/car-db.repository'
 import { DocumentsService } from 'src/documents/documents.service'
 import { InsuranceService } from 'src/insurance/insurance.service'
@@ -115,5 +115,11 @@ export class UserService {
     const { id, phone, deviceToken } =
       await this.databaseUserRepository.findById(userId)
     return { id, phone, deviceToken }
+  }
+
+  public async getBaseById(userId: string): Promise<UserBaseSdkRepsonseDTO> {
+    const { id, phone, name } =
+      await this.databaseUserRepository.findById(userId)
+    return { id, phone, name }
   }
 }

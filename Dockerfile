@@ -29,12 +29,12 @@ ENV MONGO_URI=$MONGO_URI
 COPY package*.json ./
 
 RUN npm install
-RUN npm run build
 
 COPY . .
 
+RUN npm run build
 RUN npm run migrate
 
 EXPOSE $PORT
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start:prod" ]
