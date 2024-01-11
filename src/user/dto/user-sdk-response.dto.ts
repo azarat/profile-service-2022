@@ -5,3 +5,9 @@ export class UserSdkRepsonseDTO {
   phone: string
   deviceToken: string[]
 }
+
+export class UserBaseSdkRepsonseDTO {
+  id: Types.ObjectId
+  phone: string
+  name: string
+}
