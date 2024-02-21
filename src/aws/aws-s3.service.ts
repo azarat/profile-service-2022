@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common'
 import * as AWS from 'aws-sdk'
+import dotenv from 'dotenv';
+dotenv.config();
 
 @Injectable()
 export class AwsS3Service {
   private readonly s3: AWS.S3
   constructor() {
-    this.s3 = new AWS.S3({ region: process.env.AWS_REGION })
+    // this.s3 = new AWS.S3({ region: process.env.AWS_REGION })
+
+    this.s3 = new AWS.S3({
+      endpoint: process.env.DIGI_SPACE_ENDPOINT,
+      accessKeyId: process.env.DIGI_SPACE_ACCESSS_KEY_ID,
+      secretAccessKey: process.env.DIGI_SPACE_SECRET_ACCESSS_KEY,
+    });
   }
 
   public async uploadFile(

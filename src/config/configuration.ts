@@ -1,21 +1,24 @@
-import { SecretsManager } from 'aws-sdk'
+// import { SecretsManager } from 'aws-sdk'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-const sm = new SecretsManager({
-  region: process.env.AWS_REGION,
-})
+// const sm = new SecretsManager({
+//   region: process.env.AWS_REGION,
+// })
 
 const getSecret = async (secretName: string): Promise<string> => {
-  const { SecretString } = await sm
-    .getSecretValue({
-      SecretId: process.env.SECRET_ID,
-    })
-    .promise()
-  const secrets = JSON.parse(SecretString)
-  return secrets[secretName]
+  return process.env[secretName]
 }
+// const getSecret = async (secretName: string): Promise<string> => {
+//   const { SecretString } = await sm
+//     .getSecretValue({
+//       SecretId: process.env.SECRET_ID,
+//     })
+//     .promise()
+//   const secrets = JSON.parse(SecretString)
+//   return secrets[secretName]
+// }
 
 export const configuration = async (): Promise<{ [key: string]: string }> => ({
   mongoUri: await getSecret('MONGO_URI'),

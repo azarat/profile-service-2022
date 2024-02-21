@@ -14,7 +14,7 @@ import { RequestHeader } from 'src/decorators/request-header.decorator'
 import TokenHeaderDTO from 'src/common-dto/token-header.dto'
 import { CarService } from './car.service'
 import { CarResponseDTO } from './dto/car-response.dto'
-import { CreateCarDTO } from './dto/create-car.dto'
+import { CreateCarDTO, TestDTO } from './dto/create-car.dto'
 import { UpdateCarDTO } from './dto/update-car.dto'
 import { CarUserGuard } from 'src/auth/guards/car-user.guard'
 import { RequestParam } from 'src/decorators/request-params.decorator'
@@ -94,6 +94,29 @@ export class CarController {
     @RequestHeader(TokenHeaderDTO) { token }: TokenHeaderDTO,
   ): Promise<CarResponseDTO> {
     return this.carService.createCar(car, token)
+  }
+
+  @Post('testme')
+  @ApiHeader({
+    name: 'accept-language',
+    description: 'en | ru | uk | nothing',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Car was successfully added',
+    type: CarResponseDTO,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid token',
+  })
+  public testme(
+    @Body() car: TestDTO,
+    // @RequestHeader(TokenHeaderDTO) { token }: TokenHeaderDTO,
+  ): boolean {
+    console.log("testme ok");
+    
+    return true
   }
 
   @Patch('transfer')

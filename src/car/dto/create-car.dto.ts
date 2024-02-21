@@ -8,6 +8,13 @@ import { VinDecorator } from 'src/decorators/vin.decorator'
 import { CarService } from '../car.service'
 import { LICINSE_PLATES } from '../constants/licensePlates'
 
+export class TestDTO {
+  @ApiProperty({ example: 1985 })
+  @IsNumber()
+  @Min(1900)
+  @Max(+new Date().getUTCFullYear())
+  year: number
+}
 export class CreateCarDTO {
   @ApiProperty({ example: 1985 })
   @IsNumber()
