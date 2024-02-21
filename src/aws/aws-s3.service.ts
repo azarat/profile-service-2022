@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import * as AWS from 'aws-sdk'
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 @Injectable()
 export class AwsS3Service {
